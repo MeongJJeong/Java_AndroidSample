@@ -1,0 +1,25 @@
+import java.io.IOException;
+import java.net.*;
+
+public class SocketServer {
+	public static void main(String[] args) {
+		ServerSocket server = null;
+		try {
+			server = new ServerSocket(); 
+			server.bind(new InetSocketAddress(5001));
+			while(true) {
+				System.out.println("[연결 기다림]");
+				Socket socket = server.accept();
+				InetSocketAddress isa = (InetSocketAddress) socket.getRemoteSocketAddress();
+				System.out.println("[연결 수락함] "+isa.getHostName());
+			}
+			
+		}catch(Exception e) {}
+		
+		if(!server.isClosed()) {
+			try {
+				server.close();
+			}catch(IOException e1) {}
+		}
+	}
+}
